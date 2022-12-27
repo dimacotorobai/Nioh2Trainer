@@ -1,15 +1,16 @@
 ## Nioh 2 Trainer
-An external trainer for the game Nioh 2 written in C#. This project is still being worked on and is expected to have a GUI interface as well as additional features. Currently, the trainer contains the following functionality: Godmode, OneHitKill, Infinite Stamina, Infinite Anime, Instant Yonkai Charge, Instant Yonkai Cooldown, and Infinite Yonkai Time. This is a C# XAML project created using Visual Studio 2022.
+An external trainer for the game Nioh 2 written in C# with .NET Framework. This project is still being worked on and is expected to have a GUI interface as well as additional features. Currently, the trainer contains the following functionality: Godmode, OneHitKill, Infinite Stamina, Infinite Anime, Instant Yonkai Charge, Instant Yonkai Cooldown, and Infinite Yonkai Time. This is a .NET Framework WPF project created using Visual Studio 2022.
 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/52585921/209616982-adeeed0b-e188-4d5c-b0cd-f04d87c4366d.png?raw=true" alt="Nioh2"/>
 </p>
 
 ## Instructions
-To use this application the user must either compile the project themselves or download the executable provided. Below I have provided step-by-step instructions on how to run the trainer.
+To use this application the user must either compile the project themselves or download the executable provided. Also, the user must have .NET Framework installed on their computer. Below I have provided step-by-step instructions on how to run the trainer.
 
 ### Step By Step
-  * Download the Nioh 2 Trainer executable from this repository
+  * Download and install .NET Framework from https://dotnet.microsoft.com/en-us/download/dotnet-framework
+  * Download the Nioh 2 Trainer executable from this repository(v1.0.0 targets .NET Framework 4.7.2)
   * Launch the Nioh 2 video game and start an in-game session
   * Once the character is in-game the user can launch the executable
   * Enjoy playing the game with the trainer :)
