@@ -15,7 +15,6 @@ namespace Nioh2Trainer
     {
         private IntPtr m_ProcessHandle;
         private Process m_Process;
-        private Hashtable m_MemoryHashTable;
 
         //Class Properties
         public string ProcessName { get { return m_Process.ProcessName; } }
@@ -25,7 +24,6 @@ namespace Nioh2Trainer
         {
             m_Process = default;
             m_ProcessHandle = default;
-            m_MemoryHashTable = new Hashtable();
         }
         ~ProcessManager()
         {
@@ -100,22 +98,33 @@ namespace Nioh2Trainer
             return Win32.WriteProcessMemory(m_ProcessHandle, address, buffer, buffer.Length, out _);
 
         }
-        public bool PatchMemory(IntPtr address, byte[] replace)
+        public bool PatchMemory(IntPtr address, byte[] replace, uint oldProtect = 0)
         {
-            uint oldProtect;
-            if (!Win32.VirtualProtectEx(m_ProcessHandle, address, (uint)replace.Length, (uint)MemoryProtection.ExecuteReadWrite, out oldProtect))
-                return false;
-            if (!Win32.WriteProcessMemory(m_ProcessHandle, address, replace, replace.Length, out _))
-                return false;
-            if (!Win32.VirtualProtectEx(m_ProcessHandle, address, (uint)replace.Length, oldProtect, out _))
-                return false;
-
-            return true;
+            return Win32.VirtualProtectEx(
+                    m_ProcessHandle,
+                    address,
+                    (uint)replace.Length,
+                    (uint)MemoryProtection.ExecuteReadWrite,
+                    out oldProtect
+                )
+                && Win32.WriteProcessMemory(
+                    m_ProcessHandle,
+                    address,
+                    replace,
+                    replace.Length,
+                    out _
+                )
+                && Win32.VirtualProtectEx(
+                    m_ProcessHandle,
+                    address,
+                    (uint)replace.Length,
+                    oldProtect,
+                    out _
+                );
         }
 
         public IntPtr AllocMemory(IntPtr address, uint size)
         {
-            IntPtr retValue = IntPtr.Zero;
             return Win32.VirtualAllocEx(
                 m_ProcessHandle,
                 address,
@@ -127,16 +136,12 @@ namespace Nioh2Trainer
 
         public bool FreeMemory(IntPtr address)
         {
-            bool retValue = Win32.VirtualFreeEx(
+            return Win32.VirtualFreeEx(
                 m_ProcessHandle,
                 address,
                 0,
                 AllocationType.Release
                 );
-            uint lastError = Win32.GetLastError();
-
-            if (retValue) m_MemoryHashTable.Remove(address);
-            return retValue;
         }
 
         public byte[] TakeBufferDump(IntPtr address, uint size)
@@ -147,11 +152,10 @@ namespace Nioh2Trainer
             //Take buffer dump
             byte[] BufferDump = new byte[size];
             Win32.ReadProcessMemory(m_ProcessHandle, address, BufferDump, BufferDump.Length, out _);
-            uint lastError = Win32.GetLastError();
             return BufferDump;
         }
 
-        public IntPtr FindAoB(byte[] bufferDump, byte[] signature, byte[] mask = null)
+        public IntPtr FindSignature(byte[] bufferDump, byte[] signature, byte[] mask = null)
         {
             //Create Mask
             if (mask == null)
