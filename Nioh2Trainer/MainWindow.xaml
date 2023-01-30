@@ -5,12 +5,107 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Nioh2Trainer"
         mc:Ignorable="d"
-        Title="Nioh 2 Trainer" Height="450" Width="800">
-    <Grid>
+        Title="Nioh 2 Trainer" Height="500" Width="370">
+    <Window.Resources>
+        <Style TargetType="Label" x:Key="menuLabelStyle">
+            <Setter Property="Grid.Row" Value="0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="StackPanel" x:Key="menuStackPanelStyle">
+            <Setter Property="Visibility" Value="Hidden"/>
+            <Setter Property="Grid.Column" Value="1"/>
+            <Setter Property="Grid.Row" Value="1"/>
+            <Setter Property="Grid.ColumnSpan" Value="3"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
+    <Grid Background="White">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="61*"/>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="739*"/>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <!--Menu Labels-->
+        <Label Name="labelProcess"
+               Content="Process"
+               Grid.Column="0"
+               Style="{StaticResource menuLabelStyle}"/>
+        <Label Name="labelCheats"
+               Content="Cheats"
+               Grid.Column="1"
+               Style="{StaticResource menuLabelStyle}"/>
+        <Label Name="labelInventory"
+               Content="Inventory"
+               Grid.Column="2"
+               Style="{StaticResource menuLabelStyle}"/>
+        <Label Name="labelStats"
+               Content="Stats"
+               Grid.Column="3"
+               Style="{StaticResource menuLabelStyle}"/>
+        <Label Name="labelAbout"
+               Content="About"
+               Grid.Column="4"
+               Style="{StaticResource menuLabelStyle}"/>
+        <!--Open Process Status-->
+        <Label Name="labelStatus" 
+               Content="Unattached"
+               Grid.Column="5"
+               Grid.Row="3"
+               FontSize="12"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Bottom"
+               Foreground="Black"/>
+        <!-- Menu Definitions-->
+        <StackPanel Name="menuProcess" Style="{StaticResource menuStackPanelStyle}">
+            <Label FontSize="13" Content="Process Name: nioh2.exe"/>
+            <Label FontSize="13" Content="Process ID: 0x000" Name="labelPID"/>
+            <Label FontSize="13" Content="Module Base: 0x000000000000" Name="labelModbBase"/>
+            <Label FontSize="13" Content="Status: Unattached" Name="labelStatusPrimary"/>
+            <Button Name="buttonAttach"
+                    Content="Attach"
+                    Padding="0,10"
+                    Margin="0,10"/>
+        </StackPanel>
+        <StackPanel Name="menuCheats" Style="{StaticResource menuStackPanelStyle}">
+            <CheckBox FontSize="13" Margin="0,3" Padding="0,0" Content=" Godmode" Name="checkGodmode"/>
+            <CheckBox FontSize="13" Margin="0,3" Padding="0,0" Content=" OneHitKill" Name="checkOneHitKill"/>
+            <CheckBox FontSize="13" Margin="0,3" Padding="0,0" Content=" Stamina" Name="checkStamina"/>
+            <CheckBox FontSize="13" Margin="0,3" Padding="0,0" Content=" Anima" Name="checkAnime"/>
+            <CheckBox FontSize="13" Margin="0,3" Padding="0,0" Content=" Yonkai Charge" Name="checkYonkaiCharge"/>
+            <CheckBox FontSize="13" Margin="0,3" Padding="0,0" Content=" Yonkai Cooldown" Name="checkYonkaiCooldown"/>
+            <CheckBox FontSize="13" Margin="0,3" Padding="0,0" Content=" Yonkai Duration" Name="checkYonkaiDuration"/>
+            <CheckBox FontSize="13" Margin="0,3" Padding="0,0" Content=" Buff Duration" Name="checkBuffDuration"/>
+        </StackPanel>
+        <StackPanel Name="menuInventory" Style="{StaticResource menuStackPanelStyle}">
+            <CheckBox FontSize="13" Margin="0,3" Padding="0,0" Content=" Item Consume " Name="checkItemConsume"/>
+            <CheckBox FontSize="13" Margin="0,3" Padding="0,0" Content=" Ninjustu/Onmyo Consume" Name="checkOnmyo"/>
+            <CheckBox FontSize="13" Margin="0,3" Padding="0,0" Content=" Max Items Pick Up" Name="checkItemPickUp"/>
+            <CheckBox FontSize="13" Margin="0,3" Padding="0,0" Content=" Max Amrita Gain" Name="checkAmrita"/>
+            <CheckBox FontSize="13" Margin="0,3" Padding="0,0" Content=" Max Glory Gain" Name="checkGlory"/>
+        </StackPanel>
+        <StackPanel Name="menuStats" Style="{StaticResource menuStackPanelStyle}">
+            <StackPanel Orientation="Horizontal">
+                <Label FontSize="13" Content="Proficiency Multiplier" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                <TextBox Name="tbProficiency" FontSize="13" Text="1" Width="55" Height="24" VerticalContentAlignment="Center" HorizontalContentAlignment="Right"/>
+                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Button Name="bProficiencyUp"    FontSize="9" Content="▲" Width="15" Height="12" VerticalContentAlignment="Center"/>
+                    <Button Name="bProfieciencyDown" FontSize="9" Content="▼" Width="15" Height="12" VerticalContentAlignment="Center"/>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Name="menuAbout" Style="{StaticResource menuStackPanelStyle}">
+            <Label FontSize="13" Content="Version 2.0.0" Name="labelVersion" />
+        </StackPanel>
     </Grid>
 </Window>
