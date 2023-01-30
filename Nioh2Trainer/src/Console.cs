@@ -23,13 +23,14 @@ namespace Nioh2Trainer
             m_Nioh2Trainer.Unhook();
             m_Nioh2Trainer.Cleanup();
         }
-        public bool Setup(string consoleName, string processName)
+        public bool Setup(string consoleName)
         {
             try
             {
                 //Initialize trainer
                 System.Console.Title = consoleName;
                 m_Nioh2Trainer = new Trainer();
+                m_Nioh2Trainer.GetAoB();
 
                 //Create all function hooks(LocalPlayer and Health only functions that override current bytes)
                 m_Nioh2Trainer.HookLocalPlayerFunc();
@@ -52,17 +53,17 @@ namespace Nioh2Trainer
         {
             System.Console.Clear();
 
-            System.Console.WriteLine("Process Name: {0}", m_Nioh2Trainer.ProcessName);
-            System.Console.WriteLine("Process ID:   0x{0}", Convert.ToString(m_Nioh2Trainer.ProcessID, 16));
-            System.Console.WriteLine("Module Base:  0x{0}\n", Convert.ToString(m_Nioh2Trainer.ModuleBase.ToInt64(), 16));
+            System.Console.WriteLine("Process Name: {0}", m_Nioh2Trainer.PROCESS_NAME);
+            System.Console.WriteLine("Process ID:   0x{0}", Convert.ToString(m_Nioh2Trainer.PROCESS_ID, 16));
+            System.Console.WriteLine("Module Base:  0x{0}\n", Convert.ToString(m_Nioh2Trainer.MODULE_BASE_ADDRESS.ToInt64(), 16));
 
-            System.Console.WriteLine("[F1] Godmode         ->{0}<- ", m_Nioh2Trainer.GODMODE);
-            System.Console.WriteLine("[F2] OneHitKill      ->{0}<- ", m_Nioh2Trainer.DAMAGE);
-            System.Console.WriteLine("[F3] Inf Stamina     ->{0}<- ", m_Nioh2Trainer.INFINITE_STAMINA);
-            System.Console.WriteLine("[F4] Inf Anima       ->{0}<- ", m_Nioh2Trainer.INFINITE_ANIMA);
-            System.Console.WriteLine("[F5] Yonkai Charge   ->{0}<- ", m_Nioh2Trainer.INFINITE_YONKAI_CHARGE);
-            System.Console.WriteLine("[F6] Yonkai Cooldown ->{0}<- ", m_Nioh2Trainer.INFINITE_YONKAI_COOLDOWN);
-            System.Console.WriteLine("[F7] Yonkai Time     ->{0}<- ", m_Nioh2Trainer.INFINITE_YONKAI_TIME);
+            System.Console.WriteLine("[F1]  Godmode         ->{0}<- ", m_Nioh2Trainer.GODMODE);
+            System.Console.WriteLine("[F2]  OneHitKill      ->{0}<- ", m_Nioh2Trainer.DAMAGE);
+            System.Console.WriteLine("[F3]  Inf Stamina     ->{0}<- ", m_Nioh2Trainer.STAMINA);
+            System.Console.WriteLine("[F4]  Inf Anima       ->{0}<- ", m_Nioh2Trainer.ANIMA);
+            System.Console.WriteLine("[F5]  Yonkai Charge   ->{0}<- ", m_Nioh2Trainer.YONKAI_CHARGE);
+            System.Console.WriteLine("[F6]  Yonkai Cooldown ->{0}<- ", m_Nioh2Trainer.YONKAI_COOLDOWN);
+            System.Console.WriteLine("[F7]  Yonkai Time     ->{0}<- ", m_Nioh2Trainer.YONKAI_TIME);
             System.Console.WriteLine("[F8] Exit");
         }
         public void PollEvents()
@@ -85,27 +86,27 @@ namespace Nioh2Trainer
                 }
                 if (Win32.GetAsyncKeyState(Win32.VK_F3) > 0)
                 {
-                    m_Nioh2Trainer.INFINITE_STAMINA = !m_Nioh2Trainer.INFINITE_STAMINA;
+                    m_Nioh2Trainer.STAMINA = !m_Nioh2Trainer.STAMINA;
                     break;
                 }
                 if (Win32.GetAsyncKeyState(Win32.VK_F4) > 0)
                 {
-                    m_Nioh2Trainer.INFINITE_ANIMA = !m_Nioh2Trainer.INFINITE_ANIMA;
+                    m_Nioh2Trainer.STAMINA = !m_Nioh2Trainer.STAMINA;
                     break;
                 }
                 if (Win32.GetAsyncKeyState(Win32.VK_F5) > 0)
                 {
-                    m_Nioh2Trainer.INFINITE_YONKAI_CHARGE = !m_Nioh2Trainer.INFINITE_YONKAI_CHARGE;
+                    m_Nioh2Trainer.STAMINA = !m_Nioh2Trainer.STAMINA;
                     break;
                 }
                 if (Win32.GetAsyncKeyState(Win32.VK_F6) > 0)
                 {
-                    m_Nioh2Trainer.INFINITE_YONKAI_COOLDOWN = !m_Nioh2Trainer.INFINITE_YONKAI_COOLDOWN;
+                    m_Nioh2Trainer.STAMINA = !m_Nioh2Trainer.STAMINA;
                     break;
                 }
                 if (Win32.GetAsyncKeyState(Win32.VK_F7) > 0)
                 {
-                    m_Nioh2Trainer.INFINITE_YONKAI_TIME = !m_Nioh2Trainer.INFINITE_YONKAI_TIME;
+                    m_Nioh2Trainer.STAMINA = !m_Nioh2Trainer.STAMINA;
                     break;
                 }
                 if (Win32.GetAsyncKeyState(Win32.VK_F8) > 0)
