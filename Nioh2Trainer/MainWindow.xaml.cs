@@ -213,6 +213,7 @@ namespace Nioh2Trainer
             catch (Exception E)
             {
                 m_Nioh2 = null;
+                this.labelStatusPrimary.Content = "Status: Failed";
                 this.labelStatus.Content = "Failed";
                 this.labelStatus.Foreground = Brushes.Red;
             }
